@@ -1,0 +1,252 @@
+    <!DOCTYPE html>
+    <html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Seleção de Prioridades</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center; /* Centraliza todo o conteúdo */
+            }
+
+            #image-container {
+                margin: 20px;
+            }
+
+            #image-container img {
+                max-width: 30%; /* Defina a largura máxima da imagem */
+                margin-bottom: 20px; /* Espaçamento inferior */
+                display: block; /* Para alinhar a imagem ao centro */
+                margin-left: auto; /* Alinha a imagem à direita */
+                margin-right: auto; /* Alinha a imagem à esquerda */
+            }
+
+            #genre-selection, #user-info {
+                margin: 20px auto; /* Centraliza os containers */
+                width: fit-content; /* Ajusta a largura dos containers ao seu conteúdo */
+            }
+
+            .field {
+                margin: 5px 0;
+            }
+
+            form {
+                display: inline-block; /* Alinha os formulários para que fiquem centralizados */
+                text-align: left; /* Alinha o texto dos formulários à esquerda */
+            }
+
+            .popup-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center; /* Alinha verticalmente */
+                visibility: hidden; /* Esconder inicialmente */
+            }
+
+            .popup-content {
+                background-color: white;
+                padding: 20px;
+                border-radius: 5px;
+                text-align: center;
+                max-height: 80%; /* Limita a altura máxima */
+                overflow-y: auto; /* Habilita rolagem se necessário */
+            }
+
+            .genre-row {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+            }
+
+            .genre-item {
+                flex: 0 0 30%; /* Define a largura de cada item */
+                text-align: left;
+            }
+
+            .genre-button {
+                padding: 10px;
+                border: 1px solid #ccc;
+                background-color: #fff;
+                cursor: pointer;
+                display: block;
+                width: 100%;
+                text-align: left;
+            }
+
+            .genre-button.selected {
+                background-color: #f0f0f0;
+            }
+
+            button {
+                margin: 10px;
+            }
+        </style>
+    </head>
+    <body>
+    <div id="terms-popup" class="popup-container" style='text-align:left; padding: 10px; margin: 10px;'>
+        <div class="popup-content" style="text-align: justify; padding: 20px;">
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/6682800/65d75eca7c144_FNWfreenatstoreLogodownload.jpg" alt="Imagem Descrição" style="max-width: 25%; margin-bottom: 10px; margin-left: auto; margin-right: auto;">
+            <h2>Termos e Condições</h2>
+            <br><p>    Ao continuar, você aceita os <a href="#">Termos e Condições</a>.</p>
+            <!-- Conteúdo extenso dos termos para demonstrar a rolagem -->
+            <br><p>    Termo de Confidencialidade e Garantia de Acesso Intransferível</p>
+            <br><p>    Este termo estabelece que todas as informações e ferramentas disponibilizadas</p>
+            <br><p>    em nosso sistema de propostas online são estritamente confidenciais e</p>
+        <br><p>     de acesso exclusivo aos usuários autorizados.</p>
+            <br><p>    O acesso a esses recursos é intransferível e requer a concordância</p>
+            <br><p>    em manter a confidencialidade dos dados e informações acessadas.</p>
+            <br><p>    Qualquer divulgação não autorizada ou uso inadequado dessas informações</p>
+            <br><p>    pode resultar em medidas legais. Ao acessar este sistema, você concorda com os termos</p>
+            <br><p>    acima mencionados e se compromete a utilizá-lo de acordo com as diretrizes estabelecidas.</p>
+            <br><br><br><br><br><br><br>
+            <!-- Repetir o parágrafo acima várias vezes para garantir a necessidade de rolagem -->
+        </div>
+
+        <button id="accept-terms" style="display:block; margin:auto; position: absolute; top: 81%; left: 32%; transform: translate(-50%, -50%);">Aceitar</button>
+
+        <button id="decline-terms" style="display:block; margin:auto; position: absolute; top:81%; left: 65%; transform: translate(-1%, -50%);">Desistir</button>
+
+    </div>
+
+    <div id="image-container">
+        <img src="https://d1yei2z3i6k35z.cloudfront.net/6682800/65d75eca7c144_FNWfreenatstoreLogodownload.jpg" alt="Imagem Descrição" style="max-width: 30%; margin-bottom: 20px; margin-left: auto; margin-right: auto;">
+    </div>
+    <br>
+    <br>
+    <div id="user-info">
+        <h2>MVP - Lab C</h2>
+        <h5>[PoC from Alex Sobral to Ygor Daniel - v0.0.0.0.0.1.2]</h5>
+        <h3>Coleta de Prioridades do Empresário</h3>
+        <h5>NÃO ENVIAMOS SPAM</h5>
+        <form id="user-form">
+            <div class="field">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="field">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+        </form>
+    </div>
+
+    <div id="genre-selection">
+        <h2>Escolha até 3 Prioridades do Momento:</h2>
+        <form id="genres-form">
+            <!-- Nova estrutura para as Prioridades  Empresariaias -->
+            <div class="field genre-row">
+                <div class="genre-item">
+                    <button type="button" class="genre-button" data-value="Negócio / Projeto">Negócio / Projeto</button>
+                </div>
+                <div class="genre-item">
+                    <button type="button" class="genre-button" data-value="Nicho Púbico Alvo">Nicho / Público Alvo</button>
+                </div>
+                <div class="genre-item">
+                    <button type="button" class="genre-button" data-value="Aumento Ticket Médio">Aumento Ticket Médio</button>
+                </div>
+            </div>
+            <div class="field genre-row">
+                <div class="genre-item">
+                    <button type="button" class="genre-button" data-value="Aumentar Base Clientes">Aum. Base Clientes</button>
+                </div>
+                <div class="genre-item">
+                    <button type="button" class="genre-button" data-value="Crescimento Assinantes">Crescimento Assinantes</button>
+                </div>
+                <div class="genre-item">
+                    <button type="button" class="genre-button" data-value="Posicionamento Digital">Posicionamento Digital</button>
+                </div>
+            </div>
+            <div class="field genre-row">
+                <div class="genre-item">
+                    <button type="button" class="genre-button" data-value="Análise Viab. Lucro">Análise Viab. Lucro</button>
+                </div>
+                <div class="genre-item">
+                    <button type="button" class="genre-button" data-value="Análise Retenção Clientes">Verif. Retenção Clientes</button>
+                </div>
+                <div class="genre-item">
+                    <button type="button" class="genre-button" data-value="Produtividade e Processos">Produtividade  e Processos</button>
+                </div>
+            </div>
+            <div class="field genre-row">
+                <div class="genre-item">
+                    <button type="button" class="genre-button" data-value="Trafego / Site">Tráfego / Site</button>
+                </div>
+                <!-- Adicione mais Prioridades conforme necessário -->
+            </div>
+            <!-- Termina a nova estrutura para as Prioridades -->
+            <br>
+            <button type="submit">Enviar Seleção</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const popup = document.getElementById('terms-popup');
+            const acceptButton = document.getElementById('accept-terms');
+            const declineButton = document.getElementById('decline-terms');
+            const popupContent = document.querySelector('.popup-content');
+
+            // Mostrar o pop-up
+            popup.style.visibility = 'visible';
+
+            popupContent.addEventListener('scroll', function() {
+                const isAtBottom = popupContent.scrollHeight - popupContent.scrollTop <= popupContent.clientHeight;
+                if (isAtBottom) {
+                    acceptButton.style.display = 'block';
+                }
+            });
+
+            acceptButton.addEventListener('click', function() {
+                popup.style.visibility = 'hidden';
+                // Aqui você pode adicionar qualquer outra lógica que ocorra após a aceitação
+            });
+
+            declineButton.addEventListener('click', function() {
+                window.location.reload();
+            });
+
+            const genresForm = document.getElementById('genres-form');
+            genresForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const selectedGenres = Array.from(document.querySelectorAll('.genre-button.selected')).map(el => el.dataset.value);
+                const userName = document.getElementById('name').value;
+                const userEmail = document.getElementById('email').value;
+                if (selectedGenres.length > 3) {
+                    alert('Você só pode selecionar até 3 Prioridades.');
+                    return;
+                }
+
+                const confirmation = confirm('Após confirmar o envio do e-mail, você será redirecionado. Deseja continuar?');
+                if (confirmation) {
+                    const mailtoLink = `mailto:freenat.doc@gmail.com?subject=Seleção de Prioridades&body=Nome: ${encodeURIComponent(userName)}%0AEmail: ${encodeURIComponent(userEmail)}%0APrioridades Selecionadas: ${encodeURIComponent(selectedGenres.join(', '))}`;
+                    window.location.href = mailtoLink;
+                    setTimeout(function() {
+                        window.location.href = 'https://sobralfreenat.github.io/fnw_connect_panel/';
+                    }, 5000); // Ajuste o tempo conforme necessário
+                }
+            });
+
+            const genreButtons = document.querySelectorAll('.genre-button');
+            genreButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    if (button.classList.contains('selected')) {
+                        button.classList.remove('selected');
+                    } else {
+                        if (document.querySelectorAll('.genre-button.selected').length < 3) {
+                            button.classList.add('selected');
+                        } else {
+                            alert('Você só pode selecionar até 3 Prioridades.');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    </body>
+    </html>
